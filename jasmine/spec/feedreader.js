@@ -34,20 +34,20 @@ $(function() {
         // it has a URL defined and that the URL is not empty.
 
         it('have URLs', function(){
-          allFeeds.forEach(function(data){
-            expect(data.url).toBeDefined();
-            expect(data.url.length).not.toBe(0);
-          });
+            allFeeds.forEach(function(data){
+                expect(data.url).toBeDefined();
+                expect(data.url.length).not.toBe(0);
+            });
         });
 
         // Test that loops through each feed in the allFeeds object and ensures
         // it has a name defined and that the name is not empty.
 
         it('have names', function(){
-          allFeeds.forEach(function(data){
-            expect(data.name).toBeDefined();
-            expect(data.name.length).not.toBe(0);
-          });
+            allFeeds.forEach(function(data){
+                expect(data.name).toBeDefined();
+                expect(data.name.length).not.toBe(0);
+            });
         });
     });
 
@@ -57,17 +57,17 @@ $(function() {
 
         // Test that ensures the menu element is hidden by default.
 
-        it('is hidden', function(){
-          expect($('body.menu-hidden').length).not.toBe(0);
+        it('is hidden on page load', function(){
+            expect($('body').hasClass('menu-hidden')).toBeTruthy();
         });
 
         // Test that ensures the menu changes when the menu icon is clicked.
 
         it('menu opens and closes as it should', function(){
-          $('.menu-icon-link').click();
-          expect($('body').attr('class')).not.toBe('menu-hidden');
-          $('.menu-icon-link').click();
-          expect($('body').attr('class')).toBe('menu-hidden');
+            $('.menu-icon-link').click();
+            expect($('body').hasClass('menu-hidden')).toBeFalsy();
+            $('.menu-icon-link').click();
+            expect($('body').hasClass('menu-hidden')).toBeTruthy();
         });
     });
 
@@ -79,12 +79,11 @@ $(function() {
         // there is at least a single .entry element within the .feed container
 
         beforeEach(function(done){
-          loadFeed(0, done);
+            loadFeed(0, done);
         });
 
-        it('have at least one entry', function(done){
-          expect($('.feed .entry').length).not.toBe(0);
-          done();
+        it('have at least one entry', function(){
+            expect($('.feed .entry').length).not.toBe(0);
         });
 
     });
@@ -98,19 +97,19 @@ $(function() {
         var oldFirstTitle,
             newFirstTitle;
         beforeEach(function(done){
-          loadFeed(0, function(){
-            oldFirstTitle = $('.feed .entry-link:nth-child(1) .entry h2').html();
+            loadFeed(0, function(){
+                oldFirstTitle = $('.feed .entry-link:nth-child(1) .entry h2').html();
 
-            loadFeed(1, function(){
-              newFirstTitle = $('.feed .entry-link:nth-child(1) .entry h2').html();
-              done();
+                loadFeed(1, function(){
+                    newFirstTitle = $('.feed .entry-link:nth-child(1) .entry h2').html();
+                    done();
+                });
+
             });
-
-          });
         });
 
         it('should be different than first feed', function(){
-          expect(oldFirstTitle).not.toEqual(newFirstTitle);
+            expect(oldFirstTitle).not.toEqual(newFirstTitle);
         });
 
     });
